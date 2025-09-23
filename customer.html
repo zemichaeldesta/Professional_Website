@@ -1,0 +1,236 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta http-equiv="x-ua-compatible" content="IE=edge">
+  <meta name="description" content="Delicato Guest dashboard for loyalty, quick ordering, and reservation management.">
+  <meta name="theme-color" content="#ffffff">
+  <title>Guest Dashboard | Delicato</title>
+  <link rel="canonical" href="/customer.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="customer-home">
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <header class="site-header" data-header>
+    <div class="container">
+      <div class="brand">
+        <a href="#home" aria-label="Delicato home">
+          <span class="brand-mark">D</span>
+          <span class="brand-text">Delicato</span>
+        </a>
+      </div>
+      <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="primary-navigation">
+        <span class="nav-toggle__line"></span>
+        <span class="nav-toggle__line"></span>
+        <span class="nav-toggle__line"></span>
+        <span class="sr-only">Toggle navigation</span>
+      </button>
+      <nav id="primary-navigation" class="site-nav" aria-label="Customer navigation">
+        <a href="#popular">Popular Items</a>
+        <a href="#menu">Menu</a>
+        <a href="#deals">Deals</a>
+        <button type="button" class="button button--outline button--small" data-signout>Sign Out</button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <p class="dashboard-feedback muted" data-dashboard-status role="status" aria-live="polite"></p>
+
+    <section class="hero hero--customer" id="home">
+      <div class="container hero__layout">
+        <div class="hero__copy">
+          <p class="eyebrow">Loyalty Dashboard</p>
+          <h1 data-customer-heading>Welcome back. Your table awaits.</h1>
+          <p class="lede" data-customer-subtitle>Track rewards, start an order, and redeem experiences in one place.</p>
+          <p class="customer-hero__meta">
+            Loyalty points: <strong data-customer-points>0</strong>
+            <span aria-hidden="true">&middot;</span>
+            Orders this month: <strong data-orders-this-month>0</strong>
+          </p>
+          <p class="customer-hero__meta">
+            Next reservation: <strong data-next-reservation>&mdash;</strong>
+          </p>
+          <div class="hero__actions">
+            <a class="button" href="#menu">Start an Order</a>
+            <a class="button button--outline" href="#deals">Redeem Rewards</a>
+          </div>
+        </div>
+        <aside class="loyalty-card">
+          <div class="loyalty-card__header">
+            <h2 data-loyalty-tier>Member</h2>
+            <span data-loyalty-expiry>Tier expires &mdash;</span>
+          </div>
+          <div class="loyalty-card__progress">
+            <span data-loyalty-progress-label>Progress to next tier</span>
+            <div class="progress-bar" role="img" aria-label="Loyalty progress" data-loyalty-progress-wrapper>
+              <div class="progress-bar__fill" data-loyalty-progress style="--progress: 0%"></div>
+            </div>
+            <p data-loyalty-points-remaining>Earn more points to unlock your next perk.</p>
+          </div>
+          <ul class="loyalty-card__perks" role="list" data-loyalty-perks>
+            <li>Priority reservations</li>
+            <li>Complimentary dessert every 5th visit</li>
+            <li>Exclusive tasting invitations</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="popular">
+      <div class="container">
+        <div class="section__intro">
+          <h2>Popular right now</h2>
+          <p>These dishes are flying out of the kitchen - reserve, order ahead, or enjoy in house.</p>
+        </div>
+        <div class="card-grid">
+          <article class="card">
+            <img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=800&q=80" alt="Margherita pizza">
+            <div class="card__body">
+              <h3>Margherita Pizza</h3>
+              <p>Fresh mozzarella, basil, and San Marzano tomato sauce.</p>
+              <p class="muted">.99</p>
+            </div>
+          </article>
+          <article class="card">
+            <img src="https://images.unsplash.com/photo-1543352634-3e6556de59c0?auto=format&fit=crop&w=800&q=80" alt="Classic cheeseburger">
+            <div class="card__body">
+              <h3>Classic Cheeseburger</h3>
+              <p>Cheddar, caramelized onions, and toasted brioche.</p>
+              <p class="muted">.49</p>
+            </div>
+          </article>
+          <article class="card">
+            <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80" alt="Chef's tasting">
+            <div class="card__body">
+              <h3>Chef's Tasting</h3>
+              <p>Seasonal six-course journey through coastal Mediterranean flavors.</p>
+              <p class="muted">.00 per guest</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--alt" id="menu">
+      <div class="container">
+        <div class="section__intro">
+          <h2>Order from the Delicato menu</h2>
+          <p>Browse the live menu, add dishes to your cart, and place a pickup order in minutes.</p>
+        </div>
+        <div class="menu-order">
+          <div class="menu-order__list">
+            <div class="menu-order__helper">
+              <p class="muted">Tap <strong>Add</strong> on any dish to build your order. Adjust quantities before checkout.</p>
+            </div>
+            <div id="menu-items" class="menu-grid" role="list" aria-live="polite">
+              <p class="muted" data-menu-loading>Loading menu items...</p>
+            </div>
+          </div>
+          <aside class="order-panel" aria-label="Order summary">
+            <h3>Your order</h3>
+            <div id="order-items" class="order-items" aria-live="polite">
+              <p class="muted" data-order-empty>Select a dish to begin.</p>
+            </div>
+            <dl class="order-totals">
+              <dt>Total</dt>
+              <dd id="order-total">.00</dd>
+            </dl>
+            <form id="order-form" class="order-form" autocomplete="on" novalidate>
+              <label>
+                Pickup name
+                <input type="text" name="customerName" required autocomplete="name" data-order-name>
+              </label>
+              <label>
+                Contact email
+                <input type="email" name="customerEmail" required autocomplete="email" data-order-email>
+              </label>
+              <label>
+                Notes (optional)
+                <textarea name="notes" rows="3" placeholder="Allergies, timing, etc."></textarea>
+              </label>
+              <button type="submit" class="button" id="submit-order" disabled>Place Order</button>
+              <p class="order-feedback muted" id="order-feedback" role="status" aria-live="polite"></p>
+            </form>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="deals">
+      <div class="container">
+        <div class="section__intro">
+          <h2>Exclusive rewards</h2>
+          <p>Members earn points on every visit. Redeem rewards to enhance tonight's reservation.</p>
+        </div>
+        <div class="card-grid">
+          <article class="card">
+            <header>
+              <h3>Weekend Brunch Duo</h3>
+            </header>
+            <p>2000 points | Two brunch entrees and mimosas for your next visit.</p>
+            <button type="button" class="button">Redeem</button>
+          </article>
+          <article class="card">
+            <header>
+              <h3>Chef's Counter Upgrade</h3>
+            </header>
+            <p>1250 points | Upgrade any dinner reservation to the chef's counter.</p>
+            <button type="button" class="button button--ghost">Redeem</button>
+          </article>
+          <article class="card">
+            <header>
+              <h3>Birthday Sparkling Toast</h3>
+            </header>
+            <p>Complimentary bubbles for the table on your celebration night.</p>
+            <button type="button" class="button button--outline">Reserve</button>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container site-footer__layout">
+      <div>
+        <a class="brand" href="#home" aria-label="Delicato home">
+          <span class="brand-mark">D</span>
+          <span class="brand-text">Delicato</span>
+        </a>
+        <p>312 Market Street, San Francisco, CA</p>
+        <p><a href="tel:+14155501300">(415) 550-1300</a> | <a href="mailto:hello@delicatodining.com">hello@delicatodining.com</a></p>
+      </div>
+      <div class="site-footer__links">
+        <div>
+          <h3>Explore</h3>
+          <a href="#popular">Popular Items</a>
+          <a href="#menu">Menu</a>
+          <a href="#deals">Deals</a>
+        </div>
+        <div>
+          <h3>Guests</h3>
+          <a href="customer.html" aria-current="page">Customer Dashboard</a>
+          <a href="signin.html">Sign In</a>
+          <a href="manager.html">Manager Access</a>
+        </div>
+      </div>
+    </div>
+    <div class="container site-footer__meta">
+      <p>&copy; <span data-year></span> Delicato Hospitality Group. Loyalty program terms apply.</p>
+      <a href="signup.html">Join the loyalty program</a>
+    </div>
+  </footer>
+
+  <script src="js/app.js" defer></script>
+  <script src="js/auth.js" defer></script>
+  <script src="js/customer.js" defer></script>
+</body>
+</html>
+

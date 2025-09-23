@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta http-equiv="x-ua-compatible" content="IE=edge">
+  <meta name="description" content="Join Delicato to earn loyalty rewards, manage reservations, and enjoy personalized offers.">
+  <meta name="theme-color" content="#ffffff">
+  <title>Create Account | Delicato</title>
+  <link rel="canonical" href="/signup.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="auth-page">
+  <a class="skip-link" href="#auth-main">Skip to content</a>
+  <header class="auth-header">
+    <div class="auth-header__inner container">
+      <a class="brand" href="index.html" aria-label="Back to Delicato home">
+        <span class="brand-mark">D</span>
+        <span class="brand-text">Delicato</span>
+      </a>
+      <a class="inline-link" href="index.html">Return to site</a>
+    </div>
+  </header>
+
+  <main id="auth-main" class="auth-main">
+    <section class="auth-card" aria-labelledby="signup-title">
+      <header class="auth-card__header">
+        <h1 id="signup-title">Create your Delicato account</h1>
+        <p>Earn points from your first visit, manage reservations, and enjoy tailored experiences.</p>
+      </header>
+      <form class="auth-form" action="#" method="post" autocomplete="on" novalidate>
+        <div class="form-grid">
+          <div class="form-field">
+            <label for="first-name">First name</label>
+            <input id="first-name" type="text" name="firstName" autocomplete="given-name" required>
+          </div>
+          <div class="form-field">
+            <label for="last-name">Last name</label>
+            <input id="last-name" type="text" name="lastName" autocomplete="family-name" required>
+          </div>
+        </div>
+        <div class="form-field">
+          <label for="signup-email">Email address</label>
+          <input id="signup-email" type="email" name="email" autocomplete="email" inputmode="email" required>
+        </div>
+        <div class="form-field">
+          <label for="signup-phone">Phone number <span class="muted">(optional)</span></label>
+          <input id="signup-phone" type="tel" name="phone" autocomplete="tel">
+        </div>
+        <div class="form-grid">
+          <div class="form-field form-field--password">
+            <label for="signup-password">Password</label>
+            <div class="password-input" data-password>
+              <input id="signup-password" type="password" name="password" autocomplete="new-password" required minlength="8">
+              <button type="button" class="password-toggle" data-password-toggle aria-label="Show password">Show</button>
+            </div>
+          </div>
+          <div class="form-field form-field--password">
+            <label for="signup-confirm">Confirm password</label>
+            <div class="password-input" data-password>
+              <input id="signup-confirm" type="password" name="confirmPassword" autocomplete="new-password" required minlength="8">
+              <button type="button" class="password-toggle" data-password-toggle aria-label="Show password confirmation">Show</button>
+            </div>
+          </div>
+        </div>
+        <div class="form-field form-field--checkbox">
+          <input id="signup-remember" type="checkbox" name="remember" value="true" checked>
+          <label for="signup-remember">Keep me signed in on this device</label>
+        </div>
+        <button type="submit" class="button button--full">Create Account</button>
+        <p class="auth-feedback muted" data-auth-feedback role="status" aria-live="polite"></p>
+        <p class="auth-policy">By creating an account you agree to our <a class="inline-link" href="#">privacy policy</a> and <a class="inline-link" href="#">terms</a>.</p>
+      </form>
+      <footer class="auth-card__footer">
+        <p>Already a member? <a class="inline-link" href="signin.html">Sign in</a></p>
+      </footer>
+    </section>
+  </main>
+
+  <footer class="auth-footer">
+    <div class="container auth-footer__inner">
+      <p>&copy; <span data-year></span> Delicato Hospitality Group. All rights reserved.</p>
+      <nav aria-label="Legal">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Accessibility</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="js/app.js" defer></script>
+  <script src="js/auth.js" defer></script>
+  <script src="js/signup.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta http-equiv="x-ua-compatible" content="IE=edge">
+  <meta name="description" content="Secure sign in to Delicato to manage reservations, orders, and membership perks.">
+  <meta name="theme-color" content="#ffffff">
+  <title>Sign In | Delicato</title>
+  <link rel="canonical" href="/signin.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="auth-page">
+  <a class="skip-link" href="#auth-main">Skip to content</a>
+  <header class="auth-header">
+    <div class="auth-header__inner container">
+      <a class="brand" href="index.html" aria-label="Back to Delicato home">
+        <span class="brand-mark">D</span>
+        <span class="brand-text">Delicato</span>
+      </a>
+      <a class="inline-link" href="index.html">Return to site</a>
+    </div>
+  </header>
+
+  <main id="auth-main" class="auth-main">
+    <section class="auth-card" aria-labelledby="auth-title">
+      <header class="auth-card__header">
+        <h1 id="auth-title">Sign in to your account</h1>
+        <p>Access reservations, loyalty rewards, and personalized recommendations.</p>
+      </header>
+      <form class="auth-form" action="#" method="post" autocomplete="on" novalidate>
+        <input type="hidden" name="csrf-token" value="">
+        <div class="form-field">
+          <label for="email">Email address</label>
+          <input id="email" type="email" name="email" autocomplete="email" inputmode="email" required>
+        </div>
+        <div class="form-field form-field--password">
+          <div class="form-field__label">
+            <label for="password">Password</label>
+            <a class="inline-link" href="#">Forgot password?</a>
+          </div>
+          <div class="password-input" data-password>
+            <input id="password" type="password" name="password" autocomplete="current-password" required minlength="8">
+            <button type="button" class="password-toggle" data-password-toggle aria-label="Show password">Show</button>
+          </div>
+        </div>
+        <div class="form-field form-field--checkbox">
+          <input id="remember" type="checkbox" name="remember" value="true">
+          <label for="remember">Keep me signed in on this device</label>
+        </div>
+        <button type="submit" class="button button--full">Sign In</button>
+        <p class="auth-feedback muted" data-auth-feedback role="status" aria-live="polite"></p>
+        <div class="auth-divider" role="separator" aria-label="or continue with">
+          <span>or continue with</span>
+        </div>
+        <div class="auth-providers">
+          <button type="button" class="button button--outline button--provider" data-provider="google">
+            <span class="provider-icon" aria-hidden="true">G</span>
+            <span>Sign in with Google</span>
+          </button>
+          <button type="button" class="button button--outline button--provider" data-provider="apple">
+            <span class="provider-icon" aria-hidden="true">A</span>
+            <span>Sign in with Apple</span>
+          </button>
+        </div>
+      </form>
+      <footer class="auth-card__footer">
+        <p>New to Delicato? <a class="inline-link" href="signup.html">Create an account</a></p>
+        <p class="auth-policy">Protected by industry-standard encryption. <a class="inline-link" href="#">Security details</a></p>
+      </footer>
+    </section>
+  </main>
+
+  <footer class="auth-footer">
+    <div class="container auth-footer__inner">
+      <p>&copy; <span data-year></span> Delicato Hospitality Group. All rights reserved.</p>
+      <nav aria-label="Legal">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Accessibility</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="js/app.js" defer></script>
+  <script src="js/auth.js" defer></script>
+  <script src="js/signin.js" defer></script>
+</body>
+</html>
+
+
+
+
+
+

@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta http-equiv="x-ua-compatible" content="IE=edge">
+  <meta name="description" content="Delicato manager dashboard for overseeing reservations, sales analytics, and website content.">
+  <meta name="theme-color" content="#ffffff">
+  <title>Manager Dashboard | Delicato</title>
+  <link rel="canonical" href="/manager.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="dashboard-page">
+  <a class="skip-link" href="#dashboard-main">Skip to dashboard content</a>
+
+  <header class="dashboard-header">
+    <div class="container dashboard-header__inner">
+      <a class="brand" href="index.html" aria-label="Return to Delicato home">
+        <span class="brand-mark">D</span>
+        <span class="brand-text">Delicato Manager</span>
+      </a>
+      <div class="dashboard-header__actions">
+        <span class="dashboard-header__status">Shift: <strong>Morning</strong></span>
+        <a class="button button--outline button--small" href="index.html">View Website</a>
+        <button class="button button--small" type="button">Export Report</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="dashboard-layout">
+    <aside class="dashboard-sidebar" aria-label="Manager navigation">
+      <nav class="dashboard-nav" aria-label="Manager sections">
+        <a href="#analytics" data-view-trigger="analytics" class="is-active">Analytics</a>
+        <a href="#content-management" data-view-trigger="content">Content Management</a>
+        <a href="#operations" data-view-trigger="operations">Operations</a>
+        <a href="#media" data-view-trigger="media">Media Library</a>
+        <a href="#settings" data-view-trigger="settings">Settings</a>
+      </nav>
+      <div class="dashboard-sidebar__footer">
+        <p class="muted">Signed in as</p>
+        <p><strong>Lucia Romero</strong><br>General Manager</p>
+        <button type="button" class="button button--outline button--small" data-signout>Sign Out</button>
+      </div>
+    </aside>
+
+    <main id="dashboard-main" class="dashboard-main">
+      <section id="overview" class="dashboard-section" data-view-section="analytics">
+        <header class="dashboard-section__header">
+          <h1>Daily Overview</h1>
+          <p>Monitor the health of the restaurant at a glance.</p>
+        </header>
+        <div class="metric-grid">
+          <article class="metric-card">
+            <h2>Today's Revenue</h2>
+            <p class="metric-card__value" data-metric-value="revenue">$0.00</p>
+            <p class="metric-card__meta" data-metric-meta="revenue">Calculating...</p>
+          </article>
+          <article class="metric-card">
+            <h2>Orders Completed</h2>
+            <p class="metric-card__value" data-metric-value="orders">0</p>
+            <p class="metric-card__meta" data-metric-meta="orders">0 pending</p>
+          </article>
+          <article class="metric-card">
+            <h2>Average Ticket</h2>
+            <p class="metric-card__value" data-metric-value="ticket">$0.00</p>
+            <p class="metric-card__meta" data-metric-meta="ticket">No completed orders yet</p>
+          </article>
+          <article class="metric-card">
+            <h2>Guests Seated</h2>
+            <p class="metric-card__value" data-metric-value="guests">0</p>
+            <p class="metric-card__meta" data-metric-meta="guests">0 upcoming reservations</p>
+          </article>
+        </div>
+      </section>
+
+     
+        <div class="analytics-grid">
+          
+            <div class="chart chart--bar" role="img" aria-label="Bar chart showing sales by category">
+              <div class="chart-bar" style="--value: 82%">
+                <span>Entrees</span>
+                <strong>$12.4K</strong>
+              </div>
+              <div class="chart-bar" style="--value: 64%">
+                <span>Appetizers</span>
+                <strong>$6.8K</strong>
+              </div>
+              <div class="chart-bar" style="--value: 58%">
+                <span>Beverages</span>
+                <strong>$5.1K</strong>
+              </div>
+              <div class="chart-bar" style="--value: 45%">
+                <span>Desserts</span>
+                <strong>$3.9K</strong>
+              </div>
+            </div>
+            
+          </figure>
+        </div>
+      </section>
+
+            <section id="content-management" class="dashboard-section" data-view-section="content">
+        <header class="dashboard-section__header">
+          <h2>Website Content</h2>
+          <p>Update the hero, story, and popular highlights shown on the guest site.</p>
+        </header>
+        <form class="content-form" action="#" method="post">
+          <fieldset>
+            <legend>Landing Hero</legend>
+            <div class="content-form__grid">
+              <label class="content-form__full">
+                Eyebrow
+                <input type="text" name="hero-eyebrow" value="Modern Mediterranean Kitchen" required>
+              </label>
+              <label class="content-form__full">
+                Headline
+                <input type="text" name="hero-headline" value="Pick what matters most today." required>
+              </label>
+              <label class="content-form__full">
+                Subheading
+                <textarea name="hero-subheading" rows="3" required>Start with our most-loved plates, browse the full menu, or redeem a loyalty deal crafted by Chef Lucia.</textarea>
+              </label>
+            </div>
+            <div class="content-form__grid">
+              <label>
+                CTA 1 Label
+                <input type="text" name="hero-cta-1-label" value="See Popular" required>
+              </label>
+              <label>
+                CTA 1 Target
+                <input type="text" name="hero-cta-1-target" value="#popular" required>
+              </label>
+              <label>
+                CTA 2 Label
+                <input type="text" name="hero-cta-2-label" value="View Menu" required>
+              </label>
+              <label>
+                CTA 2 Target
+                <input type="text" name="hero-cta-2-target" value="#menu" required>
+              </label>
+            </div>
+            <div class="content-form__grid">
+              <label>
+                CTA 3 Label
+                <input type="text" name="hero-cta-3-label" value="Find Deals" required>
+              </label>
+              <label>
+                CTA 3 Target
+                <input type="text" name="hero-cta-3-target" value="#deals" required>
+              </label>
+            </div>
+            <label class="content-form__full">
+              Hero Image URL
+              <input type="url" name="hero-image" value="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80" required>
+            </label>
+            <label class="content-form__full">
+              Hero Image Alt Text
+              <input type="text" name="hero-image-alt" value="Mediterranean dishes served on a rustic table" required>
+            </label>
+            <label class="content-form__full">
+              Hero Caption
+              <input type="text" name="hero-caption" value="Chef Lucia's seasonal tasting board" required>
+            </label>
+          </fieldset>
+
+          <fieldset>
+            <legend>Our Story Section</legend>
+            <label>
+              Section Title
+              <input type="text" name="story-title" value="Rooted in tradition, elevated for today." required>
+            </label>
+            <label>
+              Body Copy
+              <textarea name="story-body" rows="4" required>From cherished family recipes to contemporary culinary techniques, every plate at Delicato tells a story of heritage and innovation. Our kitchen is guided by sustainably sourced ingredients, hand-crafted pastas, and open-flame cooking to deliver unforgettable flavor.</textarea>
+            </label>
+            <div class="content-form__grid">
+              <label>
+                Highlight 1
+                <input type="text" name="story-highlight-1" value="Seasonal menus" required>
+              </label>
+              <label>
+                Highlight 2
+                <input type="text" name="story-highlight-2" value="Sommelier-led pairings" required>
+              </label>
+              <label>
+                Highlight 3
+                <input type="text" name="story-highlight-3" value="Live weekends" required>
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Popular Right Now</legend>
+            <p class="muted">Edit the three featured dishes that appear in the popular section, including imagery and pricing.</p>
+            <div class="content-form__grid">
+              <label class="content-form__full">
+                Item 1 Name
+                <input type="text" name="popular-1-name" value="Margherita Pizza" required>
+              </label>
+              <label>
+                Item 1 Price
+                <input type="text" name="popular-1-price" value="$12.99" required>
+              </label>
+              <label class="content-form__full">
+                Item 1 Description
+                <textarea name="popular-1-description" rows="2" required>Fresh mozzarella, basil, and San Marzano tomato sauce.</textarea>
+              </label>
+              <label class="content-form__full">
+                Item 1 Image URL
+                <input type="url" name="popular-1-image" value="https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=800&q=80" required>
+              </label>
+              <label class="content-form__full">
+                Item 1 Image Alt Text
+                <input type="text" name="popular-1-image-alt" value="Margherita pizza" required>
+              </label>
+              <label class="content-form__full">
+                Item 2 Name
+                <input type="text" name="popular-2-name" value="Classic Cheeseburger" required>
+              </label>
+              <label>
+                Item 2 Price
+                <input type="text" name="popular-2-price" value="$10.49" required>
+              </label>
+              <label class="content-form__full">
+                Item 2 Description
+                <textarea name="popular-2-description" rows="2" required>Cheddar, caramelized onions, and toasted brioche.</textarea>
+              </label>
+              <label class="content-form__full">
+                Item 2 Image URL
+                <input type="url" name="popular-2-image" value="https://images.unsplash.com/photo-1543352634-3e6556de59c0?auto=format&fit=crop&w=800&q=80" required>
+              </label>
+              <label class="content-form__full">
+                Item 2 Image Alt Text
+                <input type="text" name="popular-2-image-alt" value="Classic cheeseburger" required>
+              </label>
+              <label class="content-form__full">
+                Item 3 Name
+                <input type="text" name="popular-3-name" value="Chef's Tasting" required>
+              </label>
+              <label>
+                Item 3 Price
+                <input type="text" name="popular-3-price" value="$68.00 per guest" required>
+              </label>
+              <label class="content-form__full">
+                Item 3 Description
+                <textarea name="popular-3-description" rows="2" required>Seasonal six-course journey through coastal Mediterranean flavors.</textarea>
+              </label>
+              <label class="content-form__full">
+                Item 3 Image URL
+                <input type="url" name="popular-3-image" value="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80" required>
+              </label>
+              <label class="content-form__full">
+                Item 3 Image Alt Text
+                <input type="text" name="popular-3-image-alt" value="Chef's tasting" required>
+              </label>
+            </div>
+          </fieldset>
+
+          <div class="content-form__actions">
+            <button type="submit" class="button">Save Changes</button>
+            <button type="reset" class="button button--outline">Reset</button>
+            <p class="content-form__feedback muted" id="content-form-feedback" role="status" aria-live="polite"></p>
+          </div>
+        </form>
+      </section>
+
+      <section id="operations" class="dashboard-section" data-view-section="operations">
+        <header class="dashboard-section__header">
+          <h2>Service Operations</h2>
+          <p>Manage orders, reservations, and dining room logistics.</p>
+        </header>
+        <div class="tabs" data-tabs>
+          <div class="tabs__list" role="tablist" aria-label="Operations views">
+            <button type="button" class="tabs__tab is-active" role="tab" aria-selected="true" aria-controls="tab-orders" data-tab="orders">Orders</button>
+            <button type="button" class="tabs__tab" role="tab" aria-selected="false" aria-controls="tab-reservations" data-tab="reservations">Reservations</button>
+            <button type="button" class="tabs__tab" role="tab" aria-selected="false" aria-controls="tab-floor" data-tab="floor">Floor Status</button>
+          </div>
+
+          <section id="tab-orders" class="tabs__panel is-active" role="tabpanel">
+            <table class="data-table">
+              <caption>Live Orders</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Order #</th>
+                  <th scope="col">Guest</th>
+                  <th scope="col">Table</th>
+                  <th scope="col">Items</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="orders-table-body">
+
+                <tr data-empty>
+
+                  <td colspan="6" class="muted">Loading orders...</td>
+
+                </tr>
+
+</tbody>
+            </table>
+          </section>
+
+          <section id="tab-reservations" class="tabs__panel" role="tabpanel" hidden>
+            <table class="data-table">
+              <caption>Upcoming Reservations</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Name</th>
+                  <th scope="col">Date</th>
+                  <th scope="col">Time</th>
+                  <th scope="col">Party</th>
+                  <th scope="col">Notes</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="reservations-table-body">
+
+                <tr data-empty>
+
+                  <td colspan="6" class="muted">Loading reservations...</td>
+
+                </tr>
+
+</tbody>
+            </table>
+          </section>
+
+          <section id="tab-floor" class="tabs__panel" role="tabpanel" hidden>
+            <div class="floor-grid">
+              <article class="floor-card">
+                <h3>Main Dining</h3>
+                <p class="floor-card__status">12 of 18 tables seated</p>
+                <p>Next turnover in 24 minutes.</p>
+                <button type="button" class="button button--small">View Layout</button>
+              </article>
+              <article class="floor-card">
+                <h3>Patio</h3>
+                <p class="floor-card__status">4 of 6 tables seated</p>
+                <p>Heaters on. Waitlist: 3 parties.</p>
+                <button type="button" class="button button--small">Adjust Waitlist</button>
+              </article>
+              <article class="floor-card">
+                <h3>Private Lounge</h3>
+                <p class="floor-card__status">Event setup (8 PM)</p>
+                <p>Chef tasting menu staging at 6 PM.</p>
+                <button type="button" class="button button--small">Manage Event</button>
+              </article>
+            </div>
+          </section>
+        </div>
+      </section>
+
+
+      <section id="menu-admin" class="dashboard-section" data-view-section="operations">
+        <header class="dashboard-section__header">
+          <h2>Menu Management</h2>
+          <p>Publish, hide, or update pricing for menu items in real time.</p>
+        </header>
+        <div class="menu-admin">
+          <div class="menu-admin__actions">
+            <button type="button" class="button button--small" data-menu-refresh>Refresh Menu</button>
+          </div>
+          <table class="data-table" aria-live="polite">
+            <caption>Current Menu Items</caption>
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Category</th>
+                <th scope="col">Price</th>
+                <th scope="col">Status</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="menu-admin-body">
+              <tr data-empty>
+                <td colspan="5" class="muted">Loading menu...</td>
+              </tr>
+            </tbody>
+          </table>
+          <form id="menu-create-form" class="menu-admin__form" autocomplete="off">
+            <h3>Add New Item</h3>
+            <div class="menu-admin__grid">
+              <label>
+                Name
+                <input type="text" name="name" required>
+              </label>
+              <label>
+                Category
+                <input type="text" name="category">
+              </label>
+              <label>
+                Price ($)
+                <input type="number" name="price" min="0" step="0.01" required>
+              </label>
+              <label class="menu-admin__full">
+                Image URL
+                <input type="url" name="imageUrl">
+              </label>
+              <label class="menu-admin__full">
+                Description
+                <textarea name="description" rows="2"></textarea>
+              </label>
+            </div>
+            <div class="menu-admin__form-actions">
+              <button type="submit" class="button button--small">Publish Item</button>
+              <span class="menu-admin__form-feedback muted" id="menu-form-feedback" role="status" aria-live="polite"></span>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <section id="media" class="dashboard-section" data-view-section="media">
+        <header class="dashboard-section__header">
+          <h2>Media Library</h2>
+          <p>Manage artwork, menu photography, and homepage visuals.</p>
+        </header>
+        <div class="media-grid">
+          <article class="media-card">
+            <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80" alt="Seasonal tasting board">
+            <div class="media-card__body">
+              <h3>Hero Tasting Board</h3>
+              <p>Used in Homepage Hero</p>
+              <div class="media-card__actions">
+                <button type="button" class="button button--outline button--small">Replace</button>
+                <button type="button" class="link-button">Remove</button>
+              </div>
+            </div>
+          </article>
+          <article class="media-card">
+            <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=400&q=80" alt="Brunch spread">
+            <div class="media-card__body">
+              <h3>Brunch Spread</h3>
+              <p>Sunrise Brunch Card</p>
+              <div class="media-card__actions">
+                <button type="button" class="button button--outline button--small">Replace</button>
+                <button type="button" class="link-button">Remove</button>
+              </div>
+            </div>
+          </article>
+          <article class="media-card">
+            <img src="https://images.unsplash.com/photo-1604908177225-d4b6df04e4e6?auto=format&fit=crop&w=400&q=80" alt="Dessert trio">
+            <div class="media-card__body">
+              <h3>Dessert Trio</h3>
+              <p>Sweet Finishes Card</p>
+              <div class="media-card__actions">
+                <button type="button" class="button button--outline button--small">Replace</button>
+                <button type="button" class="link-button">Remove</button>
+              </div>
+            </div>
+          </article>
+          <article class="media-card media-card--upload">
+            <div class="media-card__body">
+              <h3>Upload New Media</h3>
+              <p>Drag and drop assets or browse files.</p>
+              <label class="upload-dropzone">
+                <input type="file" name="media-upload" accept="image/*" hidden>
+                <span>Choose File</span>
+              </label>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="settings" class="dashboard-section" data-view-section="settings">
+        <header class="dashboard-section__header">
+          <h2>Manager Settings</h2>
+          <p>Control user access, notifications, and service preferences.</p>
+        </header>
+        <form class="settings-form" action="#" method="post">
+          <fieldset>
+            <legend>Team Access</legend>
+            <div class="settings-table" data-team-table>
+              <div class="settings-row settings-row--head">
+                <span>User</span>
+                <span>Role</span>
+                <span>Updated</span>
+                <span>Actions</span>
+              </div>
+              <div class="settings-row" data-team-empty>
+                <span>Loading team...</span>
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+            <div class="settings-table__actions">
+              <button type="button" class="button button--outline button--small" data-team-refresh>Refresh Team</button>
+              <p class="muted" data-team-feedback role="status" aria-live="polite"></p>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Notifications</legend>
+            <label class="settings-toggle">
+              <input type="checkbox" name="notify-low-inventory" checked>
+              <span>Alert me when inventory thresholds are reached</span>
+            </label>
+            <label class="settings-toggle">
+              <input type="checkbox" name="notify-reservation-waitlist" checked>
+              <span>Send push when waitlist exceeds 6 parties</span>
+            </label>
+            <label class="settings-toggle">
+              <input type="checkbox" name="notify-review" >
+              <span>Email weekly guest feedback summary</span>
+            </label>
+          </fieldset>
+
+          <fieldset>
+            <legend>Service Preferences</legend>
+            <label>
+              Default Service Mode
+              <select name="service-mode">
+                <option selected>Dine-In & Takeout</option>
+                <option>Dine-In Only</option>
+                <option>Takeout Only</option>
+              </select>
+            </label>
+            <label>
+              Reservation Hold Time (minutes)
+              <input type="number" name="reservation-hold" value="15" min="5" max="60">
+            </label>
+          </fieldset>
+
+
+          <fieldset>
+            <legend>Loyalty Program</legend>
+            <label>
+              Points earned per dollar
+              <input type="number" name="loyalty-rate" min="0" max="1000" step="0.1" data-loyalty-rate>
+            </label>
+            <p class="muted" data-loyalty-feedback role="status" aria-live="polite"></p>
+            <button type="button" class="button button--outline button--small" data-loyalty-save>Update Loyalty Rate</button>
+          </fieldset>
+
+          <div class="settings-form__actions">
+            <button type="submit" class="button">Update Settings</button>
+            <button type="reset" class="button button--outline">Cancel</button>
+          </div>
+        </form>
+      </section>
+    </main>
+  </div>
+
+  <footer class="dashboard-footer">
+    <div class="container dashboard-footer__inner">
+      <p>&copy; <span data-year></span> Delicato Hospitality Group. Internal use only.</p>
+      <p>Need help? <a href="mailto:it@delicatodining.com">Contact IT Support</a></p>
+    </div>
+  </footer>
+
+  <script src="js/app.js" defer></script>
+  <script src="js/auth.js" defer></script>
+  <script src="js/manager.js" defer></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
