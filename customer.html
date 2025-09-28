@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -164,6 +164,84 @@
       </div>
     </section>
 
+    <section class="section" id="order-tracker">
+      <div class="container">
+        <div class="section__intro">
+          <h2>Order tracker</h2>
+          <p>Follow your order from the kitchen in real time and know exactly when it is ready.</p>
+        </div>
+        <div class="order-tracker" data-order-tracker>
+          <article class="order-tracker__card" data-order-id="DL-1042" data-order-stage="preparing">
+            <header class="order-tracker__header">
+              <div>
+                <h3>Order DL-1042</h3>
+                <p class="muted">Placed 12:35 PM &middot; Pickup</p>
+              </div>
+              <div class="order-tracker__eta" role="status" aria-live="polite">
+                <span class="order-tracker__eta-label">Ready in</span>
+                <strong data-order-countdown>12 min</strong>
+              </div>
+            </header>
+            <div class="order-tracker__timeline" role="list" aria-label="Order progress">
+              <div class="order-tracker__step is-complete" role="listitem">
+                <span class="order-tracker__step-node" aria-hidden="true">1</span>
+                <div>
+                  <p class="order-tracker__step-title">Received</p>
+                  <p class="muted">12:35 PM</p>
+                </div>
+              </div>
+              <div class="order-tracker__step is-active" role="listitem" aria-current="step">
+                <span class="order-tracker__step-node" aria-hidden="true">2</span>
+                <div>
+                  <p class="order-tracker__step-title">Preparing</p>
+                  <p class="muted">Chef Marco is on it</p>
+                </div>
+              </div>
+              <div class="order-tracker__step" role="listitem">
+                <span class="order-tracker__step-node" aria-hidden="true">3</span>
+                <div>
+                  <p class="order-tracker__step-title">Ready for pickup</p>
+                  <p class="muted">Estimated 12:52 PM</p>
+                </div>
+              </div>
+              <div class="order-tracker__step" role="listitem">
+                <span class="order-tracker__step-node" aria-hidden="true">4</span>
+                <div>
+                  <p class="order-tracker__step-title">Completed</p>
+                  <p class="muted">Awaiting handoff</p>
+                </div>
+              </div>
+            </div>
+            <footer class="order-tracker__footer">
+              <div class="order-tracker__items">
+                <h4>In your bag</h4>
+                <ul>
+                  <li>2 &times; Bucatini Pomodoro</li>
+                  <li>1 &times; Truffle fries</li>
+                  <li>2 &times; Blood orange soda</li>
+                </ul>
+              </div>
+              <div class="order-tracker__status-callout">
+                <p class="muted">Need to adjust? <a href="tel:+14155501300">Call the kitchen</a>.</p>
+              </div>
+            </footer>
+          </article>
+
+          <article class="order-tracker__card order-tracker__card--compact" data-order-stage="completed">
+            <header class="order-tracker__header">
+              <div>
+                <h3>Order DL-1039</h3>
+                <p class="muted">Completed 11:18 AM &middot; Delivery</p>
+              </div>
+              <span class="order-tracker__chip order-tracker__chip--success">Completed</span>
+            </header>
+            <p class="muted">We will email the receipt and apply loyalty points automatically.</p>
+          </article>
+
+          <p class="order-tracker__empty muted" data-order-tracker-empty hidden>No active orders at the moment.</p>
+        </div>
+      </div>
+    </section>
     <section class="section" id="deals">
       <div class="container">
         <div class="section__intro">
@@ -194,8 +272,7 @@
           </article>
         </div>
       </div>
-    </section>
-  </main>
+    </section>`r`n  </main>
 
   <footer class="site-footer">
     <div class="container site-footer__layout">
@@ -218,7 +295,9 @@
           <h3>Guests</h3>
           <a href="customer.html" aria-current="page">Customer Dashboard</a>
           <a href="signin.html">Sign In</a>
+
           <a href="manager.html">Manager Access</a>
+          <a href="kitchen.html">Kitchen Command Center</a>
         </div>
       </div>
     </div>
