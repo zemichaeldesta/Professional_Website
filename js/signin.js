@@ -11,7 +11,13 @@
   const params = new URLSearchParams(window.location.search || '');
   const requestedNext = params.get('next');
 
-  const getDefaultLanding = (role) => (role === 'customer' ? 'customer.html' : 'manager.html');
+  const getDefaultLanding = (role) => {
+    const normalized = String(role || '').toLowerCase();
+    if (normalized === 'customer') return 'customer.html';
+    if (normalized === 'kitchen') return 'kitchen.html';
+    if (normalized === 'staff') return 'manager.html';
+    return 'manager.html';
+  };
 
   const setFeedback = (message, tone) => {
     if (!feedback) return;

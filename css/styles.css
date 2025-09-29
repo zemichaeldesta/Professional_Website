@@ -2598,44 +2598,6 @@ body.kitchen-screen {
   color: #ffcd7d;
 }
 
-.kitchen-order-card__footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 0.4rem;
-  font-size: 0.75rem;
-}
-
-.kitchen-order-card__time {
-  color: rgba(245, 247, 249, 0.62);
-}
-
-.kitchen-order-card__badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.24rem 0.5rem;
-  border-radius: 999px;
-  font-size: 0.68rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.kitchen-order-card__badge--queued {
-  background: rgba(86, 139, 191, 0.2);
-  color: #7fb3e0;
-}
-
-.kitchen-order-card__badge--cooking {
-  background: rgba(249, 173, 64, 0.2);
-  color: #ffcd7d;
-}
-
-.kitchen-order-card__badge--ready {
-  background: rgba(97, 204, 135, 0.22);
-  color: #8be0a6;
-}
-
 .kitchen-screen__footer {
   margin-top: auto;
   padding: 0.9rem 2.25vw;
@@ -2691,6 +2653,58 @@ body.kitchen-screen {
     padding: 0.85rem 2vw;
   }
 
+.kitchen-orders__empty {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: rgba(245, 247, 249, 0.6);
+  font-size: 0.9rem;
+  border: 1px dashed rgba(245, 247, 249, 0.18);
+  border-radius: 0.9rem;
+  padding: 1.5rem;
+  grid-column: 1 / -1;
+}
+
+.kitchen-order-card__controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.kitchen-order-card__action {
+  border: 1px solid rgba(245, 247, 249, 0.18);
+  background: rgba(245, 247, 249, 0.12);
+  color: #fff;
+  font-size: 0.7rem;
+  padding: 0.28rem 0.6rem;
+  border-radius: 0.55rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 160ms ease, border-color 160ms ease;
+}
+
+.kitchen-order-card__action:hover,
+.kitchen-order-card__action:focus {
+  background: rgba(245, 247, 249, 0.22);
+  border-color: rgba(245, 247, 249, 0.3);
+}
+
+.kitchen-order-card__action[disabled] {
+  opacity: 0.4;
+  cursor: wait;
+}
+
+.kitchen-order-card.is-updating {
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.kitchen-orders__grid[data-empty="true"] {
+  align-content: center;
+}
   .kitchen-screen__main {
     padding: 0.9rem 1.8vw 1.1rem;
   }
@@ -2702,4 +2716,92 @@ body.kitchen-screen {
   .kitchen-order-card__number {
     font-size: clamp(1.3rem, 2vw, 1.6rem);
   }
+}
+
+.kitchen-order-card__badge--pending {
+  background: rgba(86, 139, 191, 0.2);
+  color: #7fb3e0;
+}
+
+.kitchen-order-card__badge--in_progress {
+  background: rgba(249, 173, 64, 0.2);
+  color: #ffcd7d;
+}
+
+.kitchen-order-card__badge--completed {
+  background: rgba(245, 247, 249, 0.14);
+  color: rgba(245, 247, 249, 0.7);
+}
+
+.kitchen-order-card__more {
+  list-style: none;
+  font-size: 0.72rem;
+  color: rgba(245, 247, 249, 0.55);
+  font-style: italic;
+  margin-top: 0.2rem;
+}
+
+.kitchen-order-card__action--cancel {
+  background: rgba(196, 63, 59, 0.18);
+  border-color: rgba(196, 63, 59, 0.35);
+}
+
+.kitchen-order-card__action--cancel:hover,
+.kitchen-order-card__action--cancel:focus {
+  background: rgba(196, 63, 59, 0.28);
+  border-color: rgba(196, 63, 59, 0.45);
+}
+
+.kitchen-orders__meta[data-tone="error"] {
+  color: #f7a39c;
+}
+
+.kitchen-orders__meta[data-tone="success"] {
+  color: #8be0a6;
+}
+.kitchen-order-card__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+}
+
+.kitchen-order-card__time {
+  color: rgba(245, 247, 249, 0.62);
+}
+
+.kitchen-order-card__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.24rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.kitchen-order-card__badge--pending {
+  background: rgba(86, 139, 191, 0.2);
+  color: #7fb3e0;
+}
+
+.kitchen-order-card__badge--in_progress {
+  background: rgba(249, 173, 64, 0.2);
+  color: #ffcd7d;
+}
+
+.kitchen-order-card__badge--ready {
+  background: rgba(97, 204, 135, 0.22);
+  color: #8be0a6;
+}
+
+.kitchen-order-card__badge--completed {
+  background: rgba(245, 247, 249, 0.14);
+  color: rgba(245, 247, 249, 0.7);
+}
+
+.kitchen-order-card__badge--cancelled {
+  background: rgba(196, 63, 59, 0.22);
+  color: #f7a39c;
 }
