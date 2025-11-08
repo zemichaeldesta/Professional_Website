@@ -141,6 +141,7 @@
   const TEAM_ROLE_OPTIONS = [
     { value: 'manager', label: 'Manager', description: 'Full access' },
     { value: 'staff', label: 'Employee', description: 'Operations & menu access' },
+    { value: 'kitchen', label: 'Kitchen', description: 'Kitchen display & ticket controls' },
     { value: 'customer', label: 'Customer', description: 'Customer portal only' }
   ];
 
@@ -182,35 +183,53 @@
     }
   };
 
+  const normalizeTeamUser = (user) => {
+    if (!user || typeof user !== 'object') {
+      return user;
+    }
+    const normalized = { ...user };
+    const department = String(normalized.department || normalized.team || '').toLowerCase();
+    if (String(normalized.role || '').toLowerCase() === 'staff' && department === 'kitchen') {
+      normalized.role = 'kitchen';
+      if (!normalized.department) {
+        normalized.department = 'kitchen';
+      }
+    }
+    return normalized;
+  };
+
   function createTeamRow(user) {
     const isSelf = currentUser && String(currentUser.id || currentUser._id) === user.id;
     const roleOptions = TEAM_ROLE_OPTIONS.map((option) => {
       const selected = option.value === user.role ? ' selected' : '';
-      return `<option value="${option.value}"${selected}>${option.label}</option>`;
+      return '<option value="' + option.value + '"' + selected + '>' + option.label + '</option>';
     }).join('');
     const description = getRoleDescription(user.role);
-    const emailLine = description ? `${escapeHtml(user.email)} - ${escapeHtml(description)}` : escapeHtml(user.email);
+    const emailLine = description
+      ? escapeHtml(user.email) + ' - ' + escapeHtml(description)
+      : escapeHtml(user.email);
     const deleteDisabled = isSelf ? ' disabled aria-disabled="true"' : '';
     const deleteActionAttr = isSelf ? '' : ' data-action="delete"';
+    const departmentAttr = user.department ? ' data-user-department="' + escapeHtml(user.department) + '"' : '';
 
-    return `
-      <div class="settings-row" data-user-row data-user-id="${escapeHtml(user.id)}">
-        <span>
-          <input type="text" data-user-name value="${escapeHtml(user.name || '')}">
-          <small class="muted">${emailLine}</small>
-        </span>
-        <span>
-          <select data-user-role>
-            ${roleOptions}
-          </select>
-        </span>
-        <span data-user-updated>${formatTimestamp(user.updatedAt)}</span>
-        <span class="settings-row__actions">
-          <button type="button" class="button button--outline button--small" data-action="save">Save</button>
-          <button type="button" class="link-button"${deleteActionAttr}${deleteDisabled}>Remove</button>
-        </span>
-      </div>
-    `;
+    const markup = [
+      '<div class="settings-row" data-user-row data-user-id="' + escapeHtml(user.id) + '"' + departmentAttr + '>',
+      '  <span>',
+      '    <input type="text" data-user-name value="' + escapeHtml(user.name || '') + '">',
+      '    <small class="muted">' + emailLine + '</small>',
+      '  </span>',
+      '  <span>',
+      '    <select data-user-role>' + roleOptions + '</select>',
+      '  </span>',
+      '  <span data-user-updated>' + formatTimestamp(user.updatedAt) + '</span>',
+      '  <span class="settings-row__actions">',
+      '    <button type="button" class="button button--outline button--small" data-action="save">Save</button>',
+      '    <button type="button" class="link-button"' + deleteActionAttr + deleteDisabled + '>Remove</button>',
+      '  </span>',
+      '</div>'
+    ].join('\n');
+
+    return markup;
   }
 
   function renderTeam(users = []) {
@@ -218,7 +237,9 @@
     const emptyRow = teamTable.querySelector('[data-team-empty]');
     teamTable.querySelectorAll('[data-user-row]').forEach((row) => row.remove());
 
-    if (!users.length) {
+    const normalizedUsers = users.map((user) => normalizeTeamUser(user));
+
+    if (!normalizedUsers.length) {
       if (emptyRow) {
         emptyRow.style.display = '';
         const firstCell = emptyRow.querySelector('span');
@@ -233,7 +254,7 @@
       emptyRow.style.display = 'none';
     }
 
-    const rowsMarkup = users.map(createTeamRow).join('');
+    const rowsMarkup = normalizedUsers.map(createTeamRow).join('');
     teamTable.insertAdjacentHTML('beforeend', rowsMarkup);
   }
 
@@ -285,9 +306,13 @@
       return;
     }
 
+    const selectedRole = roleSelect.value;
+    const isKitchenRole = selectedRole === 'kitchen';
+    const currentDepartmentAttr = (row.getAttribute('data-user-department') || '').toLowerCase();
+
     const payload = {
       name: nameInput.value.trim(),
-      role: roleSelect.value
+      role: isKitchenRole ? 'staff' : selectedRole
     };
 
     if (!payload.name) {
@@ -295,12 +320,18 @@
       return;
     }
 
+    if (isKitchenRole) {
+      payload.department = 'kitchen';
+    } else if (currentDepartmentAttr === 'kitchen') {
+      payload.department = '';
+    }
+
     const originalLabel = trigger.textContent;
     trigger.disabled = true;
     trigger.textContent = 'Saving...';
 
     try {
-      const response = await fetch(`${API_BASE}/users/${userId}`, {
+      const response = await fetch(API_BASE + '/users/' + userId, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -315,9 +346,9 @@
       }
 
       await loadTeam({ silent: true });
-      setTeamFeedback('User updated.', 'success');
+      setTeamFeedback(isKitchenRole ? 'Kitchen access granted.' : 'User updated.', 'success');
     } catch (error) {
-      console.error(`Failed to update user ${userId}`, error);
+      console.error('Failed to update user ' + userId, error);
       setTeamFeedback('Failed to update user.', 'error');
     } finally {
       trigger.disabled = false;

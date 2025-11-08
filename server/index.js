@@ -19,6 +19,17 @@ const userRoutes = require("./routes/users");
 
 const app = express();
 
+// Serve static files in production
+app.use(express.static(path.join(__dirname, '..')));
+
+// Security headers
+app.use((req, res, next) => {
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'DENY');
+  res.setHeader('X-XSS-Protection', '1; mode=block');
+  next();
+});
+
 const allowedOrigins = new Set(
   (process.env.CORS_ORIGIN ||
     "http://localhost:5173,http://localhost:3000,http://127.0.0.1:5173,http://127.0.0.1:3000")

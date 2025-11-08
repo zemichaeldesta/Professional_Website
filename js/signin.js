@@ -19,6 +19,17 @@
     return 'manager.html';
   };
 
+  const normalizeKitchenRole = (user) => {
+    if (!user || typeof user !== 'object') {
+      return;
+    }
+    const role = String(user.role || '').toLowerCase();
+    const department = String(user.department || user.team || '').toLowerCase();
+    if (role === 'staff' && department === 'kitchen') {
+      user.role = 'kitchen';
+    }
+  };
+
   const setFeedback = (message, tone) => {
     if (!feedback) return;
     feedback.textContent = message || '';
@@ -30,6 +41,7 @@
   };
 
   const existingSession = AUTH && typeof AUTH.getAuth === 'function' ? AUTH.getAuth() : null;
+  normalizeKitchenRole(existingSession);
   if (existingSession) {
     const landing = requestedNext || getDefaultLanding(existingSession.role);
     window.location.replace(landing);
@@ -113,6 +125,7 @@
 
       const result = await response.json();
       const userPayload = result && result.user ? result.user : { email: emailValue, role: 'guest' };
+      normalizeKitchenRole(userPayload);
       if (result && typeof result.expiresIn === 'number') {
         userPayload.expiresIn = result.expiresIn;
       }

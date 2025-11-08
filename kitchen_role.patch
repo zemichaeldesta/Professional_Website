@@ -1,0 +1,219 @@
+diff --git a/js/manager.js b/js/manager.js
+--- a/js/manager.js
++++ b/js/manager.js
+@@
+   const TEAM_ROLE_OPTIONS = [
+     { value: 'manager', label: 'Manager', description: 'Full access' },
+     { value: 'staff', label: 'Employee', description: 'Operations & menu access' },
++    { value: 'kitchen', label: 'Kitchen', description: 'Kitchen display & ticket controls' },
+     { value: 'customer', label: 'Customer', description: 'Customer portal only' }
+   ];
+@@
+   const setTeamFeedback = (message, tone) => {
+     if (!teamFeedback) return;
+     teamFeedback.textContent = message || '';
+     if (tone) {
+       teamFeedback.dataset.tone = tone;
+     } else {
+       delete teamFeedback.dataset.tone;
+     }
+   };
++
++  const normalizeTeamUser = (user) => {
++    if (!user || typeof user !== 'object') {
++      return user;
++    }
++    const normalized = { ...user };
++    const department = String(normalized.department || normalized.team || '').toLowerCase();
++    if (String(normalized.role || '').toLowerCase() === 'staff' && department === 'kitchen') {
++      normalized.role = 'kitchen';
++      if (!normalized.department) {
++        normalized.department = 'kitchen';
++      }
++    }
++    return normalized;
++  };
+ 
+   function createTeamRow(user) {
+     const isSelf = currentUser && String(currentUser.id || currentUser._id) === user.id;
+-    const roleOptions = TEAM_ROLE_OPTIONS.map((option) => {
+-      const selected = option.value === user.role ? ' selected' : '';
+-      return `<option value="${option.value}"${selected}>${option.label}</option>`;
+-    }).join('');
+-    const description = getRoleDescription(user.role);
+-    const emailLine = description ? `${escapeHtml(user.email)} - ${escapeHtml(description)}` : escapeHtml(user.email);
+-    const deleteDisabled = isSelf ? ' disabled aria-disabled="true"' : '';
+-    const deleteActionAttr = isSelf ? '' : ' data-action="delete"';
+-
+-    return `
+-      <div class="settings-row" data-user-row data-user-id="${escapeHtml(user.id)}">
+-        <span>
+-          <input type="text" data-user-name value="${escapeHtml(user.name || '')}">
+-          <small class="muted">${emailLine}</small>
+-        </span>
+-        <span>
+-          <select data-user-role>
+-            ${roleOptions}
+-          </select>
+-        </span>
+-        <span data-user-updated>${formatTimestamp(user.updatedAt)}</span>
+-        <span class="settings-row__actions">
+-          <button type="button" class="button button--outline button--small" data-action="save">Save</button>
+-          <button type="button" class="link-button"${deleteActionAttr}${deleteDisabled}>Remove</button>
+-        </span>
+-      </div>
+-    `;
++    const roleOptions = TEAM_ROLE_OPTIONS.map((option) => {
++      const selected = option.value === user.role ? ' selected' : '';
++      return '<option value="' + option.value + '"' + selected + '>' + option.label + '</option>';
++    }).join('');
++    const description = getRoleDescription(user.role);
++    const emailLine = description
++      ? escapeHtml(user.email) + ' - ' + escapeHtml(description)
++      : escapeHtml(user.email);
++    const deleteDisabled = isSelf ? ' disabled aria-disabled="true"' : '';
++    const deleteActionAttr = isSelf ? '' : ' data-action="delete"';
++    const departmentAttr = user.department ? ' data-user-department="' + escapeHtml(user.department) + '"' : '';
++
++    const markup = [
++      '<div class="settings-row" data-user-row data-user-id="' + escapeHtml(user.id) + '"' + departmentAttr + '>',
++      '  <span>',
++      '    <input type="text" data-user-name value="' + escapeHtml(user.name || '') + '">',
++      '    <small class="muted">' + emailLine + '</small>',
++      '  </span>',
++      '  <span>',
++      '    <select data-user-role>' + roleOptions + '</select>',
++      '  </span>',
++      '  <span data-user-updated>' + formatTimestamp(user.updatedAt) + '</span>',
++      '  <span class="settings-row__actions">',
++      '    <button type="button" class="button button--outline button--small" data-action="save">Save</button>',
++      '    <button type="button" class="link-button"' + deleteActionAttr + deleteDisabled + '>Remove</button>',
++      '  </span>',
++      '</div>'
++    ].join('
+');
++
++    return markup;
+   }
+ 
+   function renderTeam(users = []) {
+-    if (!teamTable) return;
+-    const emptyRow = teamTable.querySelector('[data-team-empty]');
+-    teamTable.querySelectorAll('[data-user-row]').forEach((row) => row.remove());
+-
+-    if (!users.length) {
++    if (!teamTable) return;
++    const emptyRow = teamTable.querySelector('[data-team-empty]');
++    teamTable.querySelectorAll('[data-user-row]').forEach((row) => row.remove());
++
++    const normalizedUsers = users.map((user) => normalizeTeamUser(user));
++
++    if (!normalizedUsers.length) {
+       if (emptyRow) {
+         emptyRow.style.display = '';
+         const firstCell = emptyRow.querySelector('span');
+         if (firstCell) {
+           firstCell.textContent = 'No team members yet.';
+@@
+-    if (emptyRow) {
+-      emptyRow.style.display = 'none';
+-    }
+-
+-    const rowsMarkup = users.map(createTeamRow).join('');
+-    teamTable.insertAdjacentHTML('beforeend', rowsMarkup);
++    if (emptyRow) {
++      emptyRow.style.display = 'none';
++    }
++
++    const rowsMarkup = normalizedUsers.map(createTeamRow).join('');
++    teamTable.insertAdjacentHTML('beforeend', rowsMarkup);
+   }
+ 
+   async function handleTeamSave(row, trigger) {
+     const userId = row?.dataset?.userId;
+     if (!userId) {
+       return;
+     }
+ 
+     const nameInput = row.querySelector('[data-user-name]');
+     const roleSelect = row.querySelector('[data-user-role]');
+     if (!nameInput || !roleSelect) {
+       return;
+     }
+ 
+-    const payload = {
+-      name: nameInput.value.trim(),
+-      role: roleSelect.value
+-    };
++    const selectedRole = roleSelect.value;
++    const isKitchenRole = selectedRole === 'kitchen';
++    const currentDepartmentAttr = (row.getAttribute('data-user-department') || '').toLowerCase();
++
++    const payload = {
++      name: nameInput.value.trim(),
++      role: isKitchenRole ? 'staff' : selectedRole
++    };
+ 
+     if (!payload.name) {
+       setTeamFeedback('Name cannot be empty.', 'error');
+       return;
+     }
+ 
++    if (isKitchenRole) {
++      payload.department = 'kitchen';
++    } else if (currentDepartmentAttr === 'kitchen') {
++      payload.department = '';
++    }
++
+     const originalLabel = trigger.textContent;
+     trigger.disabled = true;
+     trigger.textContent = 'Saving...';
+ 
+     try {
+-      const response = await fetch(`${API_BASE}/users/${userId}`, {
++      const response = await fetch(API_BASE + '/users/' + userId, {
+         method: 'PATCH',
+         headers: { 'Content-Type': 'application/json' },
+         credentials: 'include',
+         body: JSON.stringify(payload)
+       });
+@@
+-      await loadTeam({ silent: true });
+-      setTeamFeedback('User updated.', 'success');
++      await loadTeam({ silent: true });
++      setTeamFeedback(isKitchenRole ? 'Kitchen access granted.' : 'User updated.', 'success');
+     } catch (error) {
+-      console.error(`Failed to update user ${userId}`, error);
++      console.error('Failed to update user ' + userId, error);
+       setTeamFeedback('Failed to update user.', 'error');
+     } finally {
+       trigger.disabled = false;
+       trigger.textContent = originalLabel;
+     }
+   }
+\ No newline at end of file
+@@
+diff --git a/js/signin.js b/js/signin.js
+--- a/js/signin.js
++++ b/js/signin.js
+@@
+-  const getDefaultLanding = (role) => (role === 'customer' ? 'customer.html' : 'manager.html');
++  const getDefaultLanding = (role) => (role === 'customer' ? 'customer.html' : 'manager.html');
++  const normalizeKitchenRole = (user) => {
++    if (!user || typeof user !== 'object') {
++      return;
++    }
++    const role = String(user.role || '').toLowerCase();
++    const department = String(user.department || user.team || '').toLowerCase();
++    if (role === 'staff' && department === 'kitchen') {
++      user.role = 'kitchen';
++    }
++  };
+@@
+-  const existingSession = AUTH && typeof AUTH.getAuth === 'function' ? AUTH.getAuth() : null;
++  const existingSession = AUTH && typeof AUTH.getAuth === 'function' ? AUTH.getAuth() : null;
++  normalizeKitchenRole(existingSession);
+@@
+-      const userPayload = result && result.user ? result.user : { email: emailValue, role: 'guest' };
++      const userPayload = result && result.user ? result.user : { email: emailValue, role: 'guest' };
++      normalizeKitchenRole(userPayload);
